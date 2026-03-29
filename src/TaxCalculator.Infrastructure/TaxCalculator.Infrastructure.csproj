@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TaxCalculator.Domain\TaxCalculator.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
