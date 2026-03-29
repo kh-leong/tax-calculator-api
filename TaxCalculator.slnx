@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/TaxCalculator.API/TaxCalculator.API.csproj" Id="c0c88f31-5bc2-45b2-ba3e-77c39e5bd188" />
+    <Project Path="src/TaxCalculator.Application/TaxCalculator.Application.csproj" Id="7337218d-225e-44e6-a3ee-2db0f941bbc6" />
+    <Project Path="src/TaxCalculator.Domain/TaxCalculator.Domain.csproj" Id="fab93a4d-2c4e-442f-97a1-48a6e74dc887" />
+    <Project Path="src/TaxCalculator.Infrastructure/TaxCalculator.Infrastructure.csproj" Id="56e398c9-b79b-48c0-bbb6-3e3b44088689" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TaxCalculator.Domain.Tests/TaxCalculator.Domain.Tests.csproj" Id="2775ac87-b8cc-4403-9a87-3b510b3ebbd0" />
+  </Folder>
+</Solution>
