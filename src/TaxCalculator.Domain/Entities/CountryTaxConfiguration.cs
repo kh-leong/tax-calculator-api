@@ -9,6 +9,8 @@ public class CountryTaxConfiguration
 
     public CountryTaxConfiguration(CountryCode code, IReadOnlyList<TaxItem> items)
     {
+        ArgumentNullException.ThrowIfNull(code);
+
         if (items is null || items.Count == 0)
             throw new ArgumentException("At least one tax item is required.", nameof(items));
 

@@ -34,6 +34,14 @@ public class CountryTaxConfigurationTests
     }
 
     [Fact]
+    public void Constructor_NullCode_ThrowsArgumentNullException()
+    {
+        var items = new List<TaxItem> { new FixedTaxItem("Tax", 100m) };
+
+        Assert.Throws<ArgumentNullException>(() => new CountryTaxConfiguration(null!, items));
+    }
+
+    [Fact]
     public void Constructor_NullItems_ThrowsArgumentException()
     {
         var code = CountryCode.Create("DE");
