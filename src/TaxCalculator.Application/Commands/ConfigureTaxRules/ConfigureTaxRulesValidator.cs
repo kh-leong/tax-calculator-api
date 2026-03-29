@@ -51,12 +51,12 @@ internal class ProgressiveTaxItemValidator : AbstractValidator<ProgressiveTaxIte
     public ProgressiveTaxItemValidator()
     {
         RuleFor(x => x.Name).NotEmpty();
-        RuleFor(x => x.Brackets).NotEmpty().WithMessage("At least one bracket is required.");
+        RuleFor(x => x.Intervals).NotEmpty().WithMessage("At least one interval is required.");
 
-        RuleForEach(x => x.Brackets).ChildRules(bracket =>
+        RuleForEach(x => x.Intervals).ChildRules(interval =>
         {
-            bracket.RuleFor(b => b.Rate).InclusiveBetween(0, 1);
-            bracket.RuleFor(b => b.Threshold).GreaterThanOrEqualTo(0).When(b => b.Threshold.HasValue);
+            interval.RuleFor(b => b.Rate).InclusiveBetween(0, 1);
+            interval.RuleFor(b => b.Threshold).GreaterThanOrEqualTo(0).When(b => b.Threshold.HasValue);
         });
     }
 }

@@ -15,6 +15,6 @@ public record FlatRateTaxItemDto(string Name, decimal Rate) : TaxItemDto(Name);
 
 public record ProgressiveTaxItemDto(
     string Name,
-    List<ProgressiveIntervalDto> Brackets) : TaxItemDto(Name);
+    List<ProgressiveIntervalDto> Intervals) : TaxItemDto(Name);
 
 public record ProgressiveIntervalDto(decimal? Threshold, decimal Rate);
