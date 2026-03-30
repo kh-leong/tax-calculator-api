@@ -11,6 +11,7 @@ public class InMemoryCountryTaxConfigurationRepository : ICountryTaxConfiguratio
 
     public Task<CountryTaxConfiguration?> GetByCountryCodeAsync(CountryCode code, CancellationToken token = default)
     {
+        ArgumentNullException.ThrowIfNull(code);
         token.ThrowIfCancellationRequested();
         _store.TryGetValue(code.Value, out var config);
         // TODO: this is where we could add future external providers. For now, we just return the in-memory store.
@@ -21,6 +22,7 @@ public class InMemoryCountryTaxConfigurationRepository : ICountryTaxConfiguratio
 
     public Task UpsertAsync(CountryTaxConfiguration configuration, CancellationToken token = default)
     {
+        ArgumentNullException.ThrowIfNull(configuration);
         token.ThrowIfCancellationRequested();
         _store.AddOrUpdate(
             configuration.Code.Value,
