@@ -1,6 +1,28 @@
 @TaxCalculator.API_HostAddress = http://localhost:5041
 
-GET {{TaxCalculator.API_HostAddress}}/weatherforecast/
+### Configure tax rules for Germany
+POST {{TaxCalculator.API_HostAddress}}/api/tax/rules/DE
+Content-Type: application/json
+
+{
+  "taxItems": [
+    { "type": "fixed", "name": "CommunityTax", "amount": 1500 },
+    { "type": "fixed", "name": "RadioTax", "amount": 500 },
+    { "type": "flatRate", "name": "PensionTax", "rate": 0.20 },
+    { "type": "progressive", "name": "IncomeTax", "brackets": [
+      { "threshold": 10000, "rate": 0.00 },
+      { "threshold": 30000, "rate": 0.20 },
+      { "threshold": null, "rate": 0.40 }
+    ]}
+  ]
+}
+
+### Calculate tax for Germany
+GET {{TaxCalculator.API_HostAddress}}/api/tax/calculate?countryCode=DE&grossSalary=62000
+Accept: application/json
+
+### Calculate tax for unconfigured country
+GET {{TaxCalculator.API_HostAddress}}/api/tax/calculate?countryCode=XX&grossSalary=50000
 Accept: application/json
 
 ###
