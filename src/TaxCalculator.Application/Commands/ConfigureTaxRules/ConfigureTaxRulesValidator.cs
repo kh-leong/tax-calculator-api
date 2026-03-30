@@ -17,6 +17,7 @@ public class ConfigureTaxRulesValidator : AbstractValidator<ConfigureTaxRulesCom
 
         RuleFor(x => x.TaxItems)
             .Must(items => items?.OfType<ProgressiveTaxItemDto>().Count() <= 1)
+            .When(x => x.TaxItems is not null)
             .WithMessage("At most one progressive tax item is allowed.");
 
         RuleForEach(x => x.TaxItems).SetInheritanceValidator(v =>
