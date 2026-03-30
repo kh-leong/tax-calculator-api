@@ -10,6 +10,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/TaxCalculator.Infrastructure.Tests/TaxCalculator.Infrastructure.Tests.csproj" Id="b5d1a7a9-fa61-443c-9b16-038b65b4041f" />
+    <Project Path="tests/TaxCalculator.Application.Tests/TaxCalculator.Application.Tests.csproj" Id="91f9db1a-c9b1-487e-b12b-cf2a8c40d3b6" />
     <Project Path="tests/TaxCalculator.Domain.Tests/TaxCalculator.Domain.Tests.csproj" Id="2775ac87-b8cc-4403-9a87-3b510b3ebbd0" />
   </Folder>
 </Solution>
