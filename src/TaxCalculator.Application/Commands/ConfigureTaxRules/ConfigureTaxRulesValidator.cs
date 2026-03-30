@@ -58,5 +58,21 @@ internal class ProgressiveTaxItemValidator : AbstractValidator<ProgressiveTaxIte
             interval.RuleFor(b => b.Rate).InclusiveBetween(0, 1);
             interval.RuleFor(b => b.Threshold).GreaterThanOrEqualTo(0).When(b => b.Threshold.HasValue);
         });
+
+        RuleFor(x => x.Intervals)
+            .Must(intervals => intervals?.Count(i => i.Threshold is null) == 1)
+            .When(x => x.Intervals is { Count: > 0 })
+            .WithMessage("Exactly one interval must have a null threshold (open-ended).");
+
+        RuleFor(x => x.Intervals)
+            .Must(intervals =>
+            {
+                var sorted = intervals!
+                    .OrderBy(i => i.Threshold ?? decimal.MaxValue)
+                    .ToList();
+                return sorted[^1].Threshold is null;
+            })
+            .When(x => x.Intervals is { Count: > 0 } && x.Intervals.Count(i => i.Threshold is null) == 1)
+            .WithMessage("The open-ended interval (null threshold) must be the highest threshold.");
     }
 }
