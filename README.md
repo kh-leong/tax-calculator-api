@@ -214,3 +214,23 @@ dotnet run --project src/TaxCalculator.API
 ```
 
 4) Access the Scalar API documentation at [http://localhost:5000/scalar/v1](http://localhost:5000/scalar/v1)
+
+## Future Extensions
+
+### Tax Credits
+
+The system will later subtract tax credits from Total Taxes after all tax items are calculated. Credits can come from an external source.
+
+To implement:
+- we can add an interface `ITaxCreditRepository` and inject it into `CalculateTaxHandler`
+- after the tax is calculate, the handler can query the repository for any applicable credits and subtract them from the total before returning the result
+- existing calculation logic in `TaxCalculationService` will remain unchanged
+
+### External Rule Providers
+
+If a manual rule for a country is not configured, the system may fall back to external providers.
+
+To implement:
+- we can implement the logic to call external providers in the implementation of `GetByCountryCodeAsync` for `ICountryTaxConfigurationRepository`
+    - it can be an external HTTP request or a query to another database. This is purely an infrastructure concern
+- the handler continues calling `GetByCountryCodeAsync` without knowing where the result comes from
