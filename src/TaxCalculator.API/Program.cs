@@ -38,7 +38,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
+// commented out for simplicity of local testing, but should be enabled in production.
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
