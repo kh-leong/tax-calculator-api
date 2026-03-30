@@ -82,4 +82,18 @@ public class InMemoryCountryTaxConfigurationRepositoryTests
 
         Assert.Same(config, result);
     }
+
+    [Fact]
+    public async Task UpsertAsync_NullConfiguration_ThrowsArgumentNullException()
+    {
+        await Assert.ThrowsAsync<ArgumentNullException>(
+            () => _repository.UpsertAsync(null!, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task GetByCountryCodeAsync_NullCode_ThrowsArgumentNullException()
+    {
+        await Assert.ThrowsAsync<ArgumentNullException>(
+            () => _repository.GetByCountryCodeAsync(null!, TestContext.Current.CancellationToken));
+    }
 }
