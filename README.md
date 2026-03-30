@@ -31,9 +31,10 @@ Request body:
 ```json
 {
   "taxItems": [
-    { "type": "fixed",       "name": "CommunityTax", "amount": 1500 },
-    { "type": "flatRate",    "name": "PensionTax",   "rate": 0.20 },
-    { "type": "progressive", "name": "IncomeTax",
+    { "type": "fixed",       "name": "Community Tax", "amount": 1500 },
+    { "type": "fixed",       "name": "Radio Tax", "amount": 500 },
+    { "type": "flatRate",    "name": "Pension Tax",   "rate": 0.20 },
+    { "type": "progressive", "name": "Income Tax",
       "intervals": [
         { "threshold": 10000, "rate": 0.00 },
         { "threshold": 30000, "rate": 0.20 },
@@ -67,10 +68,10 @@ We use GET as the operation is idempotent and doesn't change anything in the ser
   "totalTaxes": 30000,
   "netSalary": 32000,
   "breakdown": [
-    { "name": "CommunityTax", "type": "fixed",       "amount": 1500  },
-    { "name": "RadioTax",     "type": "fixed",       "amount": 500   },
-    { "name": "PensionTax",   "type": "flatRate",    "amount": 12000 },
-    { "name": "IncomeTax",    "type": "progressive", "amount": 16000 }
+    { "name": "Community Tax", "type": "fixed",       "amount": 1500  },
+    { "name": "Radio Tax",     "type": "fixed",       "amount": 500   },
+    { "name": "Pension Tax",   "type": "flatRate",    "amount": 12000 },
+    { "name": "Income Tax",    "type": "progressive", "amount": 16000 }
   ]
 }
 ```
