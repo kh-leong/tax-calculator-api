@@ -68,6 +68,8 @@ internal class ProgressiveTaxItemValidator : AbstractValidator<ProgressiveTaxIte
         RuleFor(x => x.Intervals)
             .Must(intervals =>
             {
+                // TODO: use a sort that explicitly puts null at the end.
+                // current implementation has a collision on decimal.MaxValue, but it's unlikely to be an issue in practice.
                 var sorted = intervals!
                     .OrderBy(i => i.Threshold ?? decimal.MaxValue)
                     .ToList();
