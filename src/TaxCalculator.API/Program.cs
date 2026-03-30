@@ -18,7 +18,24 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference();
+    app.MapScalarApiReference(options => {
+        List<ScalarServer> servers = [];
+        string? httpsPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTPS_PORT");
+        if (httpsPort is not null)
+        {
+            servers.Add(new ScalarServer($"https://localhost:{httpsPort}"));
+        }
+
+        string? httpPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTP_PORT");
+        if (httpPort is not null)
+        {
+            servers.Add(new ScalarServer($"http://localhost:{httpPort}"));
+        }
+
+        options.Servers = servers;
+        options.Title = "Tax Calculator API";
+        options.ShowSidebar = true;
+    });
 }
 
 app.UseHttpsRedirection();

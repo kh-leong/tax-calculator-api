@@ -2,7 +2,6 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
-USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
@@ -10,18 +9,20 @@ EXPOSE 8081
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/TaxCalculator.API/TaxCalculator.API.csproj", "src/TaxCalculator.API/"]
-RUN dotnet restore "./src/TaxCalculator.API/TaxCalculator.API.csproj"
-COPY . .
-WORKDIR "/src/src/TaxCalculator.API"
-RUN dotnet build "./TaxCalculator.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+COPY TaxCalculator.slnx .
+COPY src/TaxCalculator.Domain/TaxCalculator.Domain.csproj src/TaxCalculator.Domain/
+COPY src/TaxCalculator.Application/TaxCalculator.Application.csproj src/TaxCalculator.Application/
+COPY src/TaxCalculator.Infrastructure/TaxCalculator.Infrastructure.csproj src/TaxCalculator.Infrastructure/
+COPY src/TaxCalculator.API/TaxCalculator.API.csproj src/TaxCalculator.API/
+
+RUN dotnet restore src/TaxCalculator.API/TaxCalculator.API.csproj
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./TaxCalculator.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+COPY src/ src/
+RUN dotnet publish src/TaxCalculator.API/TaxCalculator.API.csproj -c Release -o /app/publish /p:UseAppHost=false
+
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
