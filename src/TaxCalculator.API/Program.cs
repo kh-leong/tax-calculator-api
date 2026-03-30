@@ -18,18 +18,28 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference(options => {
+    app.MapScalarApiReference(options =>
+    {
         List<ScalarServer> servers = [];
-        string? httpsPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTPS_PORT");
+
+        string? httpsPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTPS_PORTS")
+            ?? Environment.GetEnvironmentVariable("ASPNETCORE_HTTPS_PORT");
         if (httpsPort is not null)
         {
-            servers.Add(new ScalarServer($"https://localhost:{httpsPort}"));
+            foreach (var port in httpsPort.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+            {
+                servers.Add(new ScalarServer($"https://localhost:{port}"));
+            }
         }
 
-        string? httpPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTP_PORT");
+        string? httpPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTP_PORTS")
+            ?? Environment.GetEnvironmentVariable("ASPNETCORE_HTTP_PORT");
         if (httpPort is not null)
         {
-            servers.Add(new ScalarServer($"http://localhost:{httpPort}"));
+            foreach (var port in httpPort.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+            {
+                servers.Add(new ScalarServer($"http://localhost:{port}"));
+            }
         }
 
         options.Servers = servers;
