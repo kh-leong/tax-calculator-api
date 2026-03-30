@@ -1,4 +1,4 @@
-@TaxCalculator.API_HostAddress = http://localhost:5041
+@TaxCalculator.API_HostAddress = http://localhost:5000
 
 ### Configure tax rules for Germany
 POST {{TaxCalculator.API_HostAddress}}/api/tax/rules/DE
@@ -9,7 +9,7 @@ Content-Type: application/json
     { "type": "fixed", "name": "CommunityTax", "amount": 1500 },
     { "type": "fixed", "name": "RadioTax", "amount": 500 },
     { "type": "flatRate", "name": "PensionTax", "rate": 0.20 },
-    { "type": "progressive", "name": "IncomeTax", "brackets": [
+    { "type": "progressive", "name": "IncomeTax", "intervals": [
       { "threshold": 10000, "rate": 0.00 },
       { "threshold": 30000, "rate": 0.20 },
       { "threshold": null, "rate": 0.40 }
