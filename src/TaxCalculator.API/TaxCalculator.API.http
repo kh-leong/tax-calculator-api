@@ -18,11 +18,11 @@ Content-Type: application/json
 }
 
 ### Calculate tax for Germany
-GET {{TaxCalculator.API_HostAddress}}/api/tax/calculate?countryCode=DE&grossSalary=62000
+GET {{TaxCalculator.API_HostAddress}}/api/tax/DE?grossSalary=62000
 Accept: application/json
 
 ### Calculate tax for unconfigured country
-GET {{TaxCalculator.API_HostAddress}}/api/tax/calculate?countryCode=XX&grossSalary=50000
+GET {{TaxCalculator.API_HostAddress}}/api/tax/XX?grossSalary=50000
 Accept: application/json
 
 ###

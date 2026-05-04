@@ -30,11 +30,11 @@ public class TaxController(IMediator mediator) : ControllerBase
         };
     }
 
-    [HttpGet("calculate")]
+    [HttpGet("{countryCode}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> CalculateTax([FromQuery] string countryCode, [FromQuery] decimal grossSalary, CancellationToken token)
+    public async Task<IActionResult> CalculateTax([FromRoute] string countryCode, [FromQuery] decimal grossSalary, CancellationToken token)
     {
         var query = new CalculateTaxRequest(countryCode, grossSalary);
         var result = await _mediator.Send(query, token);

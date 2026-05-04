@@ -55,10 +55,10 @@ Request body:
 ### Calculate Tax
 
 ```
-GET /api/tax/calculate?countryCode=DE&grossSalary=62000
+GET /api/tax/{countryCode}?grossSalary=62000
 ```
 
-We use GET as the operation is idempotent and doesn't change anything in the server. No URL length concerns with the query parameters.
+We use GET as the operation is idempotent and doesn't change anything in the server. The country code is part of the URL path following REST convention, and the gross salary is passed as a query parameter.
 
 **Response `200 OK`:**
 ```json
